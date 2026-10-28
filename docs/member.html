@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>成员简介 | 遥遥玉台 · 燕云十六声</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", SimHei, sans-serif;
+    }
+
+    html, body {
+      min-height: 100vh;
+    }
+
+    body {
+      background: #0b1220 url("images/background.png") center / cover no-repeat;
+      background-attachment: fixed;
+      color: #e6f0f8;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5, 12, 24, 0.45), rgba(5, 12, 24, 0.65));
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .logo-text {
+      margin-bottom: 30px;
+    }
+
+    .main-title {
+      font-family: "FangSong", "仿宋", serif !important;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: normal;
+      color: #f4fbff;
+      letter-spacing: 14px;
+      padding-left: 14px;
+      text-shadow:
+        0 0 10px rgba(120, 180, 220, 0.9),
+        0 0 22px rgba(80, 140, 190, 0.6),
+        0 0 35px rgba(212, 175, 87, 0.35),
+        2px 2px 0 rgba(9, 18, 32, 0.95);
+    }
+
+    .sub-title {
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      color: #ffd97a;
+      margin-top: 14px;
+      letter-spacing: 8px;
+      text-shadow:
+        0 0 8px rgba(212, 175, 87, 0.5),
+        0 2px 0 rgba(0, 0, 0, 0.6);
+    }
+
+    .en-text {
+      margin-top: 10px;
+      color: #b9d5e8;
+      letter-spacing: 5px;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    nav {
+      margin: 50px 0;
+    }
+
+    nav a {
+      display: inline-block;
+      text-decoration: none;
+      color: #eaf6ff;
+      font-size: 1.1rem;
+      padding: 12px 28px;
+      margin: 8px;
+      border: 1px solid rgba(255, 215, 120, 0.35);
+      border-radius: 999px;
+      background: rgba(10, 22, 40, 0.35);
+      backdrop-filter: blur(6px);
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      background: rgba(212, 175, 87, 0.18);
+      border-color: rgba(255, 215, 120, 0.55);
+      box-shadow: 0 0 18px rgba(212, 175, 87, 0.35);
+      color: #fff;
+    }
+
+    nav a.active {
+      background: rgba(212, 175, 87, 0.22);
+      border-color: rgba(255, 215, 120, 0.6);
+    }
+
+    .member-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 60px;
+    }
+
+    .member-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: rgba(10, 22, 40, 0.32);
+      border: 1px solid rgba(255, 215, 120, 0.25);
+      border-radius: 18px;
+      padding: 16px 18px;
+      backdrop-filter: blur(6px);
+      transition: 0.3s ease;
+      text-align: left;
+    }
+
+    .member-card:hover {
+      border-color: rgba(255, 215, 120, 0.45);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35),
+        0 0 14px rgba(212, 175, 87, 0.18);
+    }
+
+    .member-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 16px;
+      flex-shrink: 0;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 215, 120, 0.3);
+    }
+
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .member-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .member-info h3 {
+      color: #ffd97a;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+    }
+
+    .member-info p {
+      color: #d7e9f7;
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(170, 210, 240, 0.18);
+      color: #9cbbd6;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+    }
+    /* 放大弹窗样式 */
+    .img-lightbox {
+      position: fixed;
+      inset:0;
+      background: rgba(0,0,0,0.85);
+      z-index:999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding:20px;
+    }
+    .img-lightbox img{
+      max-width: 100%;
+      max-height: 100%;
+      border-radius:12px;
+      object-fit: contain;
+    }
+    .img-lightbox img{
+      width:100%;
+      display:block;
+      cursor:pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-text">
+      <h1 class="main-title">成员简介</h1>
+      <div class="sub-title">遥遥玉台 · 燕云十六声</div>
+      <div class="en-text">MEMBERS</div>
+    </div>
+
+    <nav>
+      <a href="index.html">首页</a>
+      <a href="about.html">关于我们</a>
+      <a href="member.html" class="active">成员简介</a>
+      <a href="photo.html">我们的照片</a>
+      <a href="join.html">加入我们</a>
+    </nav>
+
+    <div class="member-list">
+      <p style="color:#b9d5e8;letter-spacing:2px;margin-bottom:12px;">排序无先后，按照照片提交顺序排列</p>
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/此曲.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>社主 此曲终不复弹</h3>
+          <p>遥遥玉台，与君共赴江湖春秋</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/程安.png" >
+        </div>
+        <div class="member-info">
+          <h3>夏祭程安</h3>
+          <p>天不生无用之人，地不长无名之草。</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/论雪白.png" >
+        </div>
+        <div class="member-info">
+          <h3>论雪白</h3>
+          <p>帅锅来咯！</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/容淙.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>容淙</h3>
+          <p>你与其一直研究无我，不如研究一下怎么有我</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/cangrao.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>苍娆</h3>
+          <p>耶拉冈德在上，信女愿一生荤素搭配，来换取一背包的八音窍</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/池.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>池恧</h3>
+          <p>大家好，嗯。。我是池恧，我玩无名嗯对嘿嘿</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/天之亚.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>天知涯</h3>
+          <p>送你三千万</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/顽强.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>顽强小钻风</h3>
+          <p>已飞清河/开封/河西/不见山❗ 🌍清河留子¦个人存款百万宋元🪙¦无名剑法资深玩家😎¦不羡仙继承人🥚
+            ¦八音窍拥有者🔮¦各地杂货铺资深买手🛍️¦师承江湖高手江晏🗡️¦精通各种奇术
+            🤌¦镇冠珏持有者🏆¦🐶清河邪恶比格称号获得者🏆¦清河八大碗收集者🥣¦蹊跷收集家🤡熟稔中原官话🇨🇳 清河邪恶比格
+            称号获得者¦深耕Where Winds Meet 「燕云十六声」江湖</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/雾恋雾.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>雾恋雾</h3>
+          <p>一半热爱，一半平凡，在自己的节奏里生活</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/情书.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>温柔情书</h3>
+          <p>我可不好惹</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/釉.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>釉悠</h3>
+          <p>你的所有固执、委屈、和鸣套、聆音套、八音窍、长鸣珠、长鸣玉，我照单全收</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/涧.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>涧寻予</h3>
+          <p>高空放风筝，挨打算工伤。</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/锦鲤.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>季一理</h3>
+          <p>欢迎加入打马棋执锐大家族！</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/林晚荣.png" >
+        </div>
+        <div class="member-info">
+          <h3>林睌榮</h3>
+          <p>孤舟蓑笠翁，独钓寒江雪</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/惊谰.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>燕惊谰</h3>
+          <p>社恐i人，探索拉我，不打本</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/杳.png" >
+        </div>
+        <div class="member-info">
+          <h3>杳明子</h3>
+          <p>奶蛙</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/云初.jpg" >
+        </div>
+        <div class="member-info">
+          <h3>楠云初</h3>
+          <p>破竹尘，我随你去了</p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/member2.jpg" >
+        </div>
+        <div class="member-info">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/member2.jpg" >
+        </div>
+        <div class="member-info">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/member2.jpg" >
+        </div>
+        <div class="member-info">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/member2.jpg" >
+        </div>
+        <div class="member-info">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/member2.jpg" >
+        </div>
+        <div class="member-info">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">
+          <img src="images/member2.jpg" >
+        </div>
+        <div class="member-info">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      © 遥遥玉台 · 燕云十六声
+    </footer>
+    <div class="img-lightbox" id="lightbox">
+      <img id="lightImg" src="" alt="大图">
+    </div>
+
+    <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightImg = document.getElementById('lightImg');
+    const allImgs = document.querySelectorAll('.member-avatar img');
+    allImgs.forEach(img=>{
+      img.onclick = function(){
+        lightImg.src = this.src;
+        lightbox.style.display = 'flex';
+      }
+    })
+    lightbox.onclick = function(){
+      lightbox.style.display = 'none';
+    }
+    </script>
+  </div>
+</body>
+</html>

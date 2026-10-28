@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="
+background: url('images/background.png') center / cover no-repeat fixed;
+min-height:100vh;
+">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>遥遥玉台 | 燕云十六声</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: "Microsoft YaHei", SimHei, sans-serif;
+        }
+
+html, body {
+min-height: 100vh;
+        }
+
+body {
+/* 直接用原图做背景，不叠加白色云雾 */
+background: #0b1220 url("images/background.png") center / cover no-repeat;
+background-attachment: fixed;
+color: #e6f0f8;
+position: relative;
+overflow-x: hidden;
+        }
+
+/* 只保留很轻的暗化，不再蒙白布 */
+body::before {
+content: "";
+position: fixed;
+inset: 0;
+background: linear-gradient(180deg, rgba(5, 12, 24, 0.45), rgba(5, 12, 24, 0.65));
+pointer-events: none;
+z-index: 0;
+        }
+
+.container {
+position: relative;
+z-index: 1;
+max-width: 1200px;
+margin: 0 auto;
+padding: 60px 20px;
+text-align: center;
+        }
+
+.logo-text {
+margin-bottom: 30px;
+        }
+
+.main-title {
+font-family: "FangSong", "仿宋", serif !important;
+font-size: clamp(3rem, 8vw, 6.5rem);
+font-weight: bold;
+color: #f4fbff;
+letter-spacing: 14px;
+padding-left: 14px;
+text-shadow:
+0 0 10px rgba(120, 180, 220, 0.9),
+0 0 22px rgba(80, 140, 190, 0.6),
+0 0 35px rgba(212, 175, 87, 0.35),
+2px 2px 0 rgba(9, 18, 32, 0.95);
+        }
+
+.sub-title {
+font-size: clamp(1.3rem, 3vw, 2rem);
+color: #ffd97a;
+margin-top: 14px;
+letter-spacing: 8px;
+text-shadow:
+0 0 8px rgba(212, 175, 87, 0.5),
+0 2px 0 rgba(0, 0, 0, 0.6);
+        }
+
+.en-text {
+margin-top: 10px;
+color: #b9d5e8;
+letter-spacing: 5px;
+font-size: 0.95rem;
+opacity: 0.9;
+        }
+
+nav {
+margin: 50px 0;
+        }
+
+nav a {
+display: inline-block;
+text-decoration: none;
+color: #eaf6ff;
+font-size: 1.1rem;
+padding: 12px 28px;
+margin: 8px;
+border: 1px solid rgba(255, 215, 120, 0.35);
+border-radius: 999px;
+background: rgba(10, 22, 40, 0.35);
+backdrop-filter: blur(6px);
+transition: 0.3s ease;
+        }
+
+nav a:hover {
+background: rgba(212, 175, 87, 0.18);
+border-color: rgba(255, 215, 120, 0.55);
+box-shadow: 0 0 18px rgba(212, 175, 87, 0.35);
+color: #fff;
+        }
+
+.card-wrap {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 24px;
+margin-top: 60px;
+        }
+
+.card {
+background: rgba(10, 22, 40, 0.32);
+border: 1px solid rgba(170, 210, 240, 0.22);
+border-radius: 18px;
+padding: 30px 22px;
+backdrop-filter: blur(6px);
+transition: 0.3s ease;
+        }
+
+.card:hover {
+transform: translateY(-6px);
+border-color: rgba(255, 215, 120, 0.45);
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35),
+0 0 14px rgba(212, 175, 87, 0.18);
+        }
+
+.card h3 {
+color: #ffd97a;
+margin-bottom: 14px;
+font-size: 1.3rem;
+letter-spacing: 4px;
+        }
+
+.card p {
+color: #d7e9f7;
+line-height: 1.8;
+font-size: 1rem;
+        }
+.single-img-box {
+margin-top: 40px;
+        }
+.single-img-box img {
+max-width: 100%;
+border-radius: 16px;
+border:1px solid rgba(255,215,120,0.25);
+cursor: pointer;
+transition: 0.3s;
+        }
+.single-img-box img:hover{
+  filter: brightness(1.05);
+}
+
+/* 放大弹窗样式 */
+.img-lightbox {
+  position: fixed;
+  inset:0;
+  background: rgba(0,0,0,0.85);
+  z-index:999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding:20px;
+}
+.img-lightbox img{
+  max-width: 100%;
+  max-height: 100%;
+  border-radius:12px;
+  object-fit: contain;
+}
+
+footer {
+margin-top: 80px;
+padding-top: 24px;
+border-top: 1px solid rgba(170, 210, 240, 0.18);
+color: #9cbbd6;
+font-size: 0.9rem;
+letter-spacing: 2px;
+        }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="logo-text">
+<h1 class="main-title">遥遥玉台</h1>
+<div class="sub-title">燕云十六声</div>
+<div class="en-text">WHERE WINDS MEET</div>
+</div>
+
+<nav>
+<a href="about.html">关于我们</a>
+<a href="member.html">成员简介</a>
+<a href="photo.html">我们的照片</a>
+<a href="join.html">加入我们</a>
+</nav>
+<div class="single-img-box">
+<img id="showImg" src="images/20261026-134211.jpg" alt="展示图">
+</div>
+
+
+<footer>
+            © 遥遥玉台 · 燕云十六声 
+</footer>
+
+</div>
+
+<!-- 放大弹窗 -->
+<div class="img-lightbox" id="lightbox">
+  <img id="lightImg" src="" alt="大图">
+</div>
+
+<script>
+const showImg = document.getElementById('showImg');
+const lightbox = document.getElementById('lightbox');
+const lightImg = document.getElementById('lightImg');
+
+showImg.onclick = function(){
+  lightImg.src = this.src;
+  lightbox.style.display = 'flex';
+}
+// 点击遮罩关闭
+lightbox.onclick = function(){
+  lightbox.style.display = 'none';
+}
+</script>
+
+</body>
+</html>
